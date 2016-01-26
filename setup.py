@@ -27,7 +27,7 @@ setup(name=package_name,
         # metadata for upload to PyPI
         author = "F. Laliberte",
         author_email = "frederic.laliberte@canada.ca",
-        description = "This package provides command line tools to complement pyteos_air."
+        description = "This package provides command line tools to complement pyteos_air.",
         license = "BSD",
         keywords = "thermodynamics atmosphere climate",
         classifiers=[
