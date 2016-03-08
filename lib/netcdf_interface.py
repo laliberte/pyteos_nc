@@ -22,6 +22,7 @@ CMIP5_conversions={'A':lambda x: 1.0-x,
 valid_params=[ ('T','p'),
                ('A','T','p'),
                ('rh_wmo','T','p'),
+               ('rh_wmo','eta','p'),
                ('A','eta','p')]
 
 def print_memory_usage(process):
@@ -30,8 +31,6 @@ def print_memory_usage(process):
     sys.stdout.flush()
 
 def create_thermo(args):
-
-
     #LOAD THE DATA:
     thermo = pickle.load(args.in_thermodynamic_file)
     data = Dataset(args.in_netcdf_file)
@@ -51,8 +50,9 @@ def create_thermo(args):
     output=transfer_variables(args,data,output,available_params,fill_value)
     data.close()
 
+    for var in out_var_list:
+        print function_params(thermo[var])
     variable_list=[]
-
     while not set(output.variables.keys()).issubset(variable_list):
         variable_list=output.variables.keys()
         available_var_list=[ var for var in out_var_list if function_params(thermo[var])[:3] in available_params]
@@ -198,7 +198,7 @@ def main():
     Specific Humidity if the climate model does not allow condensated
     water.
     ''')
-    epilog='Frederic Laliberte, Paul Kushner 11/2012'
+    epilog='Frederic Laliberte, Paul Kushner 01/2016'
     epilog=textwrap.dedent(epilog+'\n\nThis script uses the pyteos_air library, based on TEOS-10.')
     version_num='0.1'
     parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter,

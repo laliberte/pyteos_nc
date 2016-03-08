@@ -5,7 +5,8 @@ It requires a thermodynamic data file (table of values) produced by pyteos_air.
 
 VERSION HISTORY:
 
-0.11 : Added missing __init__.py
+0.2 : Finished disentangling from pyteos_air
 
+0.11 : Added missing __init__.py
 
 Frederic Laliberte, January 26 2016
