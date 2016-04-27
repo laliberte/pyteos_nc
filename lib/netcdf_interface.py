@@ -6,6 +6,7 @@ import multiprocessing as mp
 import os
 import sys
 import psutil
+import time
 
 #Define the correspondence between pyteos variable names and CMIP5 naming convention:
 CMIP5_pyteos_equivalence={'A':'hus',
@@ -50,8 +51,8 @@ def create_thermo(args):
     output=transfer_variables(args,data,output,available_params,fill_value)
     data.close()
 
-    for var in out_var_list:
-        print function_params(thermo[var])
+    #for var in out_var_list:
+    #    print function_params(thermo[var])
     variable_list=[]
     while not set(output.variables.keys()).issubset(variable_list):
         variable_list=output.variables.keys()
@@ -114,14 +115,19 @@ def create_output(args,output,func,fill_value):
         params_list=function_params(func)[:3]
         output.createVariable(func.__name__,'f',tuple(output.variables[params_list[0]].dimensions),fill_value=fill_value,zlib=args.zlib)
         
+        max_steps=( 
+                    int(np.ceil(args.memory_percent*psutil.virtual_memory()[0]/
+                    ((len(params_list)+1)*32*np.prod(output.variables[func.__name__].shape[1:])))))
         time_length=len(output.dimensions['time']) 
-        for t_id in range(0,time_length):
+        for t_indices in np.array_split(np.arange(time_length),time_length//max_steps+1):
+            start_time=time.time()
             coordinates=[]
             for var in params_list:
-                coordinates.append(output.variables[var][t_id,...])
+                coordinates.append(output.variables[var][t_indices,...])
 
-            output.variables[func.__name__][t_id,...]=np.ma.filled(mp_vec_masked(func,coordinates),fill_value=fill_value)
+            output.variables[func.__name__][t_indices,...]=np.ma.filled(mp_vec_masked(func,coordinates),fill_value=fill_value)
             del coordinates
+            end_time=time.time()
             output.sync()
     #print_memory_usage(args.process)
     return output
@@ -215,10 +221,13 @@ def main():
     parser.add_argument('-z','--zlib',
                          default=False, action='store_true',
                          help='Compress the output using compressed netCDF4.')
+    parser.add_argument('--memory_percent',
+                         default=0.01,type=float, 
+                         help=argparse.SUPPRESS)
 
     args = parser.parse_args()
 
-    args.process = psutil.Process(os.getpid())
+    #args.process = psutil.Process(os.getpid())
     create_thermo(args)
 
 if __name__ == "__main__":
