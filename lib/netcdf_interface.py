@@ -119,7 +119,7 @@ def create_output(args,output,func,fill_value):
                     int(np.ceil(args.memory_percent*psutil.virtual_memory()[0]/
                     ((len(params_list)+1)*32*np.prod(output.variables[func.__name__].shape[1:])))))
         time_length=len(output.dimensions['time']) 
-        for t_indices in np.array_split(np.arange(time_length),time_length//max_steps+1):
+        for t_indices in np.array_split(np.arange(time_length),np.minimum(time_length//max_steps+1,time_length)):
             start_time=time.time()
             coordinates=[]
             for var in params_list:
