@@ -42,7 +42,7 @@ def create_thermo(args):
     fill_value=1e20
 
     #Determine the output variables:
-    out_var_list=thermo.keys()
+    out_var_list = thermo.keys()
 
     #FIRST PASS:
     #Find the available parameters sets:
@@ -141,9 +141,6 @@ def replicate_netcdf_file(output,data):
         if 'encode' in dir(att_val):
             att_val=att_val.encode('ascii','replace')
         setattr(output,att,att_val)
-    #output.history+='\n' 
-    #output.history+=dt.datetime.now().strftime('%Y-%m-%d %H:%M') #Add time
-    #output.history+=' joint_distribution.py'
     return output
 
 def replicate_netcdf_var(output,data,var):
