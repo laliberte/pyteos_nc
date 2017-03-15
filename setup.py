@@ -20,32 +20,25 @@ packages=[package_name+'.'+name for name in find_packages('lib')]
 packages.append(package_name)
 
 setup(name=package_name,
-    version = "0.2",
-    packages=packages,
-    package_dir = {package_name: 'lib'},
-
-        # metadata for upload to PyPI
-        author = "F. Laliberte",
-        author_email = "frederic.laliberte@canada.ca",
-        description = "This package provides command line tools to complement pyteos_air.",
-        license = "BSD",
-        keywords = "thermodynamics atmosphere climate",
-        classifiers=[
-            "Development Status :: 4 - Beta",
-            "Intended Audience :: Science/Research",
-            "Natural Language :: English",
-            "License :: OSI Approved :: BSD License",
-            "Programming Language :: Python :: 2.7",
-            "Programming Language :: Fortran",
-            "Topic :: Scientific/Engineering :: Atmospheric Science",
-            "Topic :: Scientific/Engineering :: Mathematics"
-        ],
-        long_description=read('README'),
-        install_requires = ['numpy>=1.6','netCDF4','scipy'],
-        zip_safe=False,
-        entry_points = {
-                  'console_scripts': [
-                           'pyteos_nc = '+package_name+'.netcdf_interface:main',
-                                     ],
-                       }
-    )
+      version="0.3",
+      packages=find_packages(exclude=['test']),
+      # metadata for upload to PyPI
+      author="F. Laliberte",
+      author_email="laliberte.frederic@utoronto.ca",
+      description="This package provides command line tools to complement pyteos_air.",
+      license="BSD",
+      keywords="thermodynamics atmosphere climate",
+      classifiers=[
+        "Development Status :: 4 - Beta",
+        "Intended Audience :: Science/Research",
+        "Natural Language :: English",
+        "License :: OSI Approved :: BSD License",
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Fortran",
+        "Topic :: Scientific/Engineering :: Atmospheric Science",
+        "Topic :: Scientific/Engineering :: Mathematics"],
+      long_description=read('README'),
+      install_requires=['numpy>=1.6', 'netCDF4', 'scipy'],
+      zip_safe=False,
+      entry_points = {'console_scripts': [
+                         'pyteos_nc = ' + package_name + '.netcdf_interface:main']})
