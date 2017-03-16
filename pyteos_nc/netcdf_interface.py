@@ -33,7 +33,8 @@ def print_memory_usage(process):
 
 def create_thermo(args):
     #LOAD THE DATA:
-    thermo = pickle.load(args.in_thermodynamic_file)
+    with open(args.in_thermodynamic_file, 'rb') as data:
+        thermo = pickle.load(data)
     data = Dataset(args.in_netcdf_file)
 
     #CREATE THE OUTPUT FILE

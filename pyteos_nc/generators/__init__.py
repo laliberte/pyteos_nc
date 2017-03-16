@@ -15,7 +15,7 @@ def generators():
 def pottemps(dest_dir, num_procs, test):
     """
     This script computes two data files:
-        DEST_DIR/massfraction_air_pottempequi_g_common_pressures.dat  
+        DEST_DIR/massfraction_air_pottempequiapprox_g_ref_common_pressures.dat  
         DEST_DIR/massfraction_air_pottemp_g_ref_common_pressures.dat
 
     that can be used with the pyteos_nc compute to compute moist air
@@ -24,9 +24,9 @@ def pottemps(dest_dir, num_procs, test):
 
     For example,
 
-    $ pyteos_nc DEST_DIR/massfraction_air_pottempequi_g_common_pressures.dat in.nc out.nc
+    $ pyteos_nc DEST_DIR/massfraction_air_pottempequiapprox_g_ref_common_pressures.dat in.nc out.nc
 
-    would compute pottempequi, the equivalent potential temperature, from file in.nc and
+    would compute pottempequiapprox, the approximate equivalent potential temperature, from file in.nc and
     store the result in out.nc.
 
     In this example, in.nc should contain variables ta (air temperature),

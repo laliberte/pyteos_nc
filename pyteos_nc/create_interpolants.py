@@ -1,5 +1,6 @@
 import numpy as np
 import scipy.interpolate as interp
+import inspect
 
 class Interpolated_data:
     def __init__(self,realm,input_type,func_name,thermo_axes,thermo_data):
@@ -77,7 +78,7 @@ def interp_linear_3D(args):
     return nd_interp
 
 def function_parameters(func):
-    func_desc=getattr(func,'func_doc')
+    func_desc = inspect.getdoc(func)
     return [ x.split(':')[1][6:] for x in func_desc.split('\n') if (len(x)>=6 and x[:6]==':param')]
 
 def pickle_interpolants(realm,input_type,functions_list,thermo_axes,file_name,num_procs=1):
