@@ -201,9 +201,9 @@ def main():
     Specific Humidity if the climate model does not allow condensated
     water.
     ''')
-    epilog='Frederic Laliberte, Paul Kushner 01/2016'
+    epilog='Frederic Laliberte 03/2017'
     epilog=textwrap.dedent(epilog+'\n\nThis script uses the pyteos_air library, based on TEOS-10.')
-    version_num='0.1'
+    version_num='0.3'
     parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter,
                             description=description,
                             version='%(prog)s '+version_num,

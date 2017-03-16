@@ -1,0 +1,11 @@
+name: pyteos2.7_defaults_test_env
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=2.7
+  - pip
+  - setuptools
+  - pytest
+  - numpy
+  - scipy

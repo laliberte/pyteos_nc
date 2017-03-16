@@ -1,0 +1,10 @@
+name: pyteos2.7_forge_test_env
+channels:
+  - conda-forge
+dependencies:
+  - python=2.7
+  - pip
+  - setuptools
+  - pytest
+  - numpy
+  - scipy
