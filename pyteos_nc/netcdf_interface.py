@@ -225,7 +225,6 @@ def main():
 
     args = parser.parse_args()
 
-    #args.process = psutil.Process(os.getpid())
     create_thermo(args)
 
 if __name__ == "__main__":
