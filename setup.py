@@ -38,7 +38,7 @@ setup(name=package_name,
                                   'pytest-cov',
                                   'pytest',
                                   'xarray'],
-                      'recipes': ['click', 'pyteos_air>=0.9.5']},
+                      'recipes': ['click', 'pyteos_air>=1.0']},
       zip_safe=False,
       entry_points = {'console_scripts': [
                          'pyteos_nc = ' + package_name + '.netcdf_interface:main',
