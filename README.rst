@@ -9,7 +9,7 @@ data file generator that relies on the ``pyteos_air`` package:
 VERSION HISTORY
 ^^^^^^^^^^^^^^^
 
-0.3 : Added some pre-cooked recipes
+0.30 : Added some pre-cooked recipes
 
 0.2 : Finished disentangling from ``pyteos_air``
 
