@@ -9,10 +9,10 @@ data file generator that relies on the ``pyteos_air`` package:
 VERSION HISTORY
 ^^^^^^^^^^^^^^^
 
-0.30 : Added some pre-cooked recipes
+0.4 : Clean-up PYPI repository.
+
+0.3 : Added some pre-cooked recipes
 
 0.2 : Finished disentangling from ``pyteos_air``
 
-0.11 : Added missing ``__init__.py``
-
-Frederic Laliberte, January 26 2016
+Frederic Laliberte, March 2017
