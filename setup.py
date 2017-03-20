@@ -12,7 +12,7 @@ def read(fname):
 
 package_name = 'pyteos_nc'
 setup(name=package_name,
-      version="0.4",
+      version="0.4.1",
       packages=find_packages(exclude=['test']),
       # metadata for upload to PyPI
       author="F. Laliberte",

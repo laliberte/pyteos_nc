@@ -204,13 +204,13 @@ def main():
     ''')
     epilog='Frederic Laliberte 03/2017'
     epilog=textwrap.dedent(epilog+'\n\nThis script uses the pyteos_air library, based on TEOS-10.')
-    version_num='0.3'
+    version_num='0.4.1'
     parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter,
                             description=description,
                             version='%(prog)s '+version_num,
                             epilog=epilog)
 
-    parser.add_argument('in_thermodynamic_file',type=argparse.FileType('r'),
+    parser.add_argument('in_thermodynamic_file',
                          help='Input interpolants file on a rh_wmo, ta, pa grid')
     parser.add_argument('in_netcdf_file',
                          help='Input netCDF file with variables ta, pa, hus or ta, pa, hur. If both sets are available, it uses ta, pa, hus.')
