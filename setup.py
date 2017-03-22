@@ -12,7 +12,7 @@ def read(fname):
 
 package_name = 'pyteos_nc'
 setup(name=package_name,
-      version="0.4.1",
+      version="0.4.2",
       packages=find_packages(exclude=['test']),
       # metadata for upload to PyPI
       author="F. Laliberte",
@@ -38,7 +38,7 @@ setup(name=package_name,
                                   'pytest-cov',
                                   'pytest',
                                   'xarray'],
-                      'recipes': ['click', 'pyteos_air>=1.0']},
+                      'recipes': ['click', 'pyteos_air>=1.0.4']},
       zip_safe=False,
       entry_points = {'console_scripts': [
                          'pyteos_nc = ' + package_name + '.netcdf_interface:main',

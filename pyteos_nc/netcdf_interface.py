@@ -40,16 +40,16 @@ def create_thermo(args):
     #CREATE THE OUTPUT FILE
     output = Dataset(args.out_netcdf_file,'w',format='NETCDF4',zlib=args.zlib)
     output = replicate_netcdf_file(output,data)
-    fill_value=1e20
+    fill_value = 1e20
 
     #Determine the output variables:
     out_var_list = thermo.keys()
 
     #FIRST PASS:
     #Find the available parameters sets:
-    available_params=[params for params in valid_params if params_in_data(data,params)]
+    available_params = [params for params in valid_params if params_in_data(data,params)]
     #Transfer each of the variables in them to the output file:
-    output=transfer_variables(args,data,output,available_params,fill_value)
+    output = transfer_variables(args,data,output,available_params,fill_value)
     data.close()
 
     #for var in out_var_list:
@@ -107,7 +107,11 @@ def transfer_variables(args,data,output,available_params,fill_value):
             if var not in output.variables.keys():
                 coord_var=output.createVariable(var,'f',tuple(data.variables[CMIP5_pyteos_equivalence[var]].dimensions),fill_value=fill_value,zlib=args.zlib)
                 output = replicate_netcdf_var_diff(output,data,CMIP5_pyteos_equivalence[var],var)
-                coord_var[:] = CMIP5_conversions[var](data.variables[CMIP5_pyteos_equivalence[var]][:])
+                temp = CMIP5_conversions[var](data.variables[CMIP5_pyteos_equivalence[var]][:])
+                if var == 'A':
+                    # Ensure A is at most 1:
+                    temp = np.minimum(temp, 1.0)
+                coord_var[:] = temp
                 output.sync()
     return output
 
@@ -204,10 +208,8 @@ def main():
     ''')
     epilog='Frederic Laliberte 03/2017'
     epilog=textwrap.dedent(epilog+'\n\nThis script uses the pyteos_air library, based on TEOS-10.')
-    version_num='0.4.1'
     parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter,
                             description=description,
-                            version='%(prog)s '+version_num,
                             epilog=epilog)
 
     parser.add_argument('in_thermodynamic_file',

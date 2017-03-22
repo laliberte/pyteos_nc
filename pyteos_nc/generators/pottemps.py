@@ -7,23 +7,27 @@ from pyteos_air.pyteos_interface import create_gridded_data
 #Specific packages:
 from ..create_interpolants import Interpolated_data
 
-def compute_pottemps(dest_dir, num_procs, test):
+def compute_pottemps(dest_dir, num_procs, test, approx):
     """
     This script computes two data files:
-        DEST_DIR/massfraction_air_pottempequiapprox_g_ref_common_pressures.dat  
+        DEST_DIR/massfraction_air_pottempequi_g_ref_common_pressures.dat  
         DEST_DIR/massfraction_air_pottemp_g_ref_common_pressures.dat
     """
     name = 'common_pressures'
     if test:
         thermo_axes = {'rh_wmo': np.linspace(0, 2.0, 11),
-                       'T': np.linspace(193, 330, 23),
-                       'p': np.array([250.0,500.0,850.0,1000.0])*1e2}
+                       'T': np.linspace(150, 330, 10),
+                       'p': np.array([1.0, 100.0, 500.0,850.0,1000.0])*1e2}
     else:
         thermo_axes = {'rh_wmo': np.linspace(0, 2.0, 101),
-                       'T': np.linspace(193, 330, 138),
-                       'p': np.array([250.0,300.0,400.0,500.0,600.0,700.0,850.0,925.0,1000.0])*1e2}
+                       'T': np.linspace(150, 330, 181),
+                       'p': np.array([1.0, 10.0, 50.0, 100.0, 150.0, 200.0, 250.0, 300.0,
+                                      400.0,500.0,600.0,700.0,850.0,925.0,1000.0])*1e2}
     thermo_axes['pref'] = 1e5
-    compute_pottemp('pottempequiapprox', num_procs, thermo_axes, name, dest_dir)
+    if approx:
+        compute_pottemp('pottempequiapprox', num_procs, thermo_axes, name, dest_dir)
+    else:
+        compute_pottemp('pottempequi', num_procs, thermo_axes, name, dest_dir)
     compute_pottemp('pottemp', num_procs, thermo_axes, name, dest_dir)
 
 
